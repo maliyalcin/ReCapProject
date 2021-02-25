@@ -1,6 +1,7 @@
 ﻿using System;
 using Business.Concrete;
 using DataAccess.Concrete;
+using DataAccess.Concrete.EntityFrameWork;
 
 namespace ReCap
 {
@@ -8,11 +9,12 @@ namespace ReCap
     {
         static void Main(string[] args)
         {
-            RentCarManager rentCarManager = new RentCarManager(new InMemoryCarDal());
+            RentCarManager rentCarManager = new RentCarManager(new EfRentCarDal());
 
             foreach (var car in rentCarManager.GetAll())
             {
-                Console.WriteLine(car.BrandId+" "+ car.ColorId+" "+car.DailyPrice+" "+car.Description);
+                Console.WriteLine(car.CarId+" "+ car.ColorId +" "
+                                  +car.BrandId+" "+ car.ModelYear+" "+ car.DailyPrice +" "+ car.Description );
             }
 
             Console.ReadLine();

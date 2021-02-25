@@ -20,5 +20,15 @@ namespace Business.Concrete
         {
             return _rentCarDal.GetAll();
         }
+
+        public List<Car> GetCarsByBrandId(int id)
+        {
+            return _rentCarDal.GetAll(p => p.BrandId == id);
+        }
+
+        public List<Car> GetCarsByColorId(int id)
+        {
+            return _rentCarDal.GetAll(p => p.ColorId == id);
+        }
     }
 }
