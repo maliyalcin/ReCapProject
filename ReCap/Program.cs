@@ -11,13 +11,11 @@ namespace ReCap
         {
             RentCarManager rentCarManager = new RentCarManager(new EfRentCarDal());
 
-            foreach (var car in rentCarManager.GetAll())
+            foreach (var car in rentCarManager.GetCarsRentalDetail())
             {
-                Console.WriteLine(car.CarId+" "+ car.ColorId +" "
-                                  +car.BrandId+" "+ car.ModelYear+" "+ car.DailyPrice +" "+ car.Description );
+                Console.WriteLine(car.CarId + " " +" "+ car.BrandName +" "+ car.ColorName +" " +
+                                  car.CarName+" "+car.ModelYear+" "+ car.DailyPrice+" TL  "+ car.Description);
             }
-
-            Console.ReadLine();
         }
     }
 }

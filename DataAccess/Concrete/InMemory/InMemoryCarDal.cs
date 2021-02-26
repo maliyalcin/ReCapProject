@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using Core.DataAccess;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete
 {
@@ -34,7 +36,7 @@ namespace DataAccess.Concrete
             return _cars;
         }
 
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        public Car GetAll(Expression<Func<Car, bool>> filter = null)
         {
             throw new NotImplementedException();
         }
@@ -62,6 +64,16 @@ namespace DataAccess.Concrete
         {
             Car carToDelete = _cars.SingleOrDefault(p => p.CarId == car.CarId);
             _cars.Remove(carToDelete);
+        }
+
+        List<Car> IEntityRepository<Car>.GetAll(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarsRentalDetailDto> GetCarsRentalDetail()
+        {
+            throw new NotImplementedException();
         }
     }
 }

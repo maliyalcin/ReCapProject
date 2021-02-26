@@ -4,6 +4,7 @@ using System.Text;
 using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -21,14 +22,19 @@ namespace Business.Concrete
             return _rentCarDal.GetAll();
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public List<Car> GetAllByBrandId(int brandId)
         {
-            return _rentCarDal.GetAll(p => p.BrandId == id);
+            return _rentCarDal.GetAll(c => c.BrandId == brandId);
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public List<Car> GetAllByColorId(int colorId)
         {
-            return _rentCarDal.GetAll(p => p.ColorId == id);
+            return _rentCarDal.GetAll(c => c.CarId == colorId);
+        }
+
+        public List<CarsRentalDetailDto> GetCarsRentalDetail()
+        {
+            return _rentCarDal.GetCarsRentalDetail();
         }
     }
 }
