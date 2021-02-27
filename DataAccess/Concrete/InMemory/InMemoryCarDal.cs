@@ -46,10 +46,9 @@ namespace DataAccess.Concrete
             throw new NotImplementedException();
         }
 
-
-        public void Add(CarRental car)
+        public void Add(CarRental entity)
         {
-            _cars.Add(car);
+            throw new NotImplementedException();
         }
 
         public void Update(CarRental car)

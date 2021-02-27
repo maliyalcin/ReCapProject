@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -17,24 +19,44 @@ namespace Business.Concrete
             _rentCarDal = rentCarDal;
         }
 
-        public List<CarRental> GetAll()
+        public IResult Add(Car car)
         {
-            return _rentCarDal.GetAll();
+            if (car.CarName.Length < 2)
+            {
+                return new ErrorResult(Messages.CarNameInvalid);
+            }
+            _rentCarDal.Add(new CarRental());
+            return new Result(true, Messages.CarAdded);
         }
 
-        public List<CarRental> GetAllByBrandId(int brandId)
+        public IDataResult<List<CarRental>> GetAll()
         {
-            return _rentCarDal.GetAll(cr => cr.BrandId == brandId);
+            if (DateTime.Now.Hour==20)
+            {
+                //return new ErrorDataResult<List<CarRental>>(Messages.MaintenanceTime);
+                return new ErrorDataResult<List<CarRental>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<CarRental>>(_rentCarDal.GetAll(),Messages.CarRentalListed);
         }
 
-        public List<CarRental> GetAllByColorId(int colorId)
+        public IDataResult<List<CarRental>> GetAllByBrandId(int brandId)
         {
-            return _rentCarDal.GetAll(cr => cr.ColorId == colorId);
+            return new SuccessDataResult<List<CarRental>>(_rentCarDal.GetAll(cr => cr.BrandId == brandId));
         }
 
-        public List<CarsRentalDetailDto> GetCarsRentalDetail()
+        public IDataResult<List<CarRental>> GetAllByColorId(int colorId)
         {
-            return _rentCarDal.GetCarsRentalDetail();
+            return new SuccessDataResult<List<CarRental>>(_rentCarDal.GetAll(cr => cr.ColorId == colorId));
+        }
+
+        public IDataResult<CarRental> GetById(int id)
+        {
+            return new SuccessDataResult<CarRental>(_rentCarDal.Get(cr => cr.Id == id));
+        }
+
+        public IDataResult<List<CarsRentalDetailDto>> GetCarsRentalDetail()
+        {
+            return new SuccessDataResult<List<CarsRentalDetailDto>>(_rentCarDal.GetCarsRentalDetail());
         }
     }
 }

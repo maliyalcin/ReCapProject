@@ -9,17 +9,22 @@ namespace ReCap
     {
         static void Main(string[] args)
         {
+            //CarRentalList();
+            
+        }
+
+        private static void CarRentalList()
+        {
             RentCarManager rentCarManager = new RentCarManager(new EfRentCarDal());
 
-            foreach (var car in rentCarManager.GetCarsRentalDetail())
+            foreach (var car in rentCarManager.GetCarsRentalDetail().Data)
             {
-
-                Console.WriteLine(car.CarId+" "+@" Brand : {0} / Color : {1} / Model : {2} / Model Year : {3} / Daily Price : {4} TL / Description : {5} ",
-                    car.BrandName,car.ColorName,car.CarName,car.ModelYear,car.DailyPrice,car.Description);
+                Console.WriteLine(
+                    car.CarId + " " +
+                    @" Brand : {0} / Color : {1} / Model : {2} / Model Year : {3} / Daily Price : {4} TL / Description : {5} ",
+                    car.BrandName, car.ColorName, car.CarName, car.ModelYear, car.DailyPrice, car.Description);
 
                 Console.WriteLine("-------------------------------------------------------------------------");
-
-
             }
         }
     }
