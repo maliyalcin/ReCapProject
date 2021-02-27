@@ -8,9 +8,9 @@ namespace Business.Abstract
 {
     public interface IRentCarService
     {
-        List<Car> GetAll();
-        List<Car> GetAllByBrandId(int brandId);
-        List<Car> GetAllByColorId(int colorId);
+        List<CarRental> GetAll();
+        List<CarRental> GetAllByBrandId(int brandId);
+        List<CarRental> GetAllByColorId(int colorId);
         List<CarsRentalDetailDto> GetCarsRentalDetail();
     }
 }

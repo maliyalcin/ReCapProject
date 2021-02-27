@@ -17,19 +17,19 @@ namespace Business.Concrete
             _rentCarDal = rentCarDal;
         }
 
-        public List<Car> GetAll()
+        public List<CarRental> GetAll()
         {
             return _rentCarDal.GetAll();
         }
 
-        public List<Car> GetAllByBrandId(int brandId)
+        public List<CarRental> GetAllByBrandId(int brandId)
         {
-            return _rentCarDal.GetAll(c => c.BrandId == brandId);
+            return _rentCarDal.GetAll(cr => cr.BrandId == brandId);
         }
 
-        public List<Car> GetAllByColorId(int colorId)
+        public List<CarRental> GetAllByColorId(int colorId)
         {
-            return _rentCarDal.GetAll(c => c.CarId == colorId);
+            return _rentCarDal.GetAll(cr => cr.ColorId == colorId);
         }
 
         public List<CarsRentalDetailDto> GetCarsRentalDetail()
