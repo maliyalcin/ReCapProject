@@ -35,16 +35,6 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarRental>>(_rentCarDal.GetAll(),Messages.CarRentalListed);
         }
 
-        public IDataResult<List<CarRental>> GetAllByBrandId(int brandId)
-        {
-            return new SuccessDataResult<List<CarRental>>(_rentCarDal.GetAll(cr => cr.BrandId == brandId));
-        }
-
-        public IDataResult<List<CarRental>> GetAllByColorId(int colorId)
-        {
-            return new SuccessDataResult<List<CarRental>>(_rentCarDal.GetAll(cr => cr.ColorId == colorId));
-        }
-
         public IDataResult<CarRental> GetById(int id)
         {
             return new SuccessDataResult<CarRental>(_rentCarDal.Get(cr => cr.Id == id));

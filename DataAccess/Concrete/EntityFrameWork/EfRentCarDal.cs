@@ -17,20 +17,30 @@ namespace DataAccess.Concrete.EntityFrameWork
         {
             using (CarsRentalContext context = new CarsRentalContext())
             {
-                var result = from cr in context.CarRental
-                             join clr in context.Colors on cr.ColorId equals clr.ColorId
-                             join b in context.Brands on cr.BrandId equals b.BrandId
-                             join c in context.Cars on cr.CarId equals c.CarId
+                var result = from carRental in context.CarRentals
+                             join car in context.Cars on carRental.CarId equals car.CarId
+                             join customer in context.Customers on carRental.CustomerId equals customer.CustomerId
+                             join user in context.Users on customer.UserId equals user.UserId
+                             join brand in context.Brands on car.BrandId equals brand.BrandId
+                             join color in context.Colors on car.ColorId equals color.ColorId
                              select new CarsRentalDetailDto
                              {
-                                 Id = cr.Id,
-                                 CarId = cr.CarId,
-                                 BrandName = b.BrandName,
-                                 CarName = c.CarName,
-                                 ColorName = clr.ColorName,
-                                 ModelYear = cr.ModelYear,
-                                 DailyPrice = cr.DailyPrice,
-                                 Description = cr.Description
+
+                                 Id = carRental.Id,
+                                 RentDate = carRental.RentDate,
+                                 ReturnDate = carRental.ReturnDate,
+                                 CarId = car.CarId,
+                                 CarName = car.CarName,
+                                 BrandName = brand.BrandName,
+                                 ColorName = color.ColorName,
+                                 ModelYear = car.ModelYear,
+                                 DailyPrice = car.DailyPrice,
+                                 Description = car.Description,
+                                 CustomerId = customer.CustomerId,
+                                 FirstName = user.FirstName,
+                                 LastName = user.LastName,
+                                 CompanyName = customer.CompanyName,
+
                              };
                 return result.ToList();
             }

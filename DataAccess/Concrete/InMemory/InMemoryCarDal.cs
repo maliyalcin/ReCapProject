@@ -4,73 +4,84 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using Core.DataAccess;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 
 namespace DataAccess.Concrete
 {
-    public class InMemoryCarDal:IRentCarDal
+    public class InMemoryCarDal:ICarDal
     {
-        List<CarRental> _cars;
+        List<Car> _cars;
 
         public InMemoryCarDal()
         {
-            _cars = new List<CarRental>
+            _cars = new List<Car>
             {
-                new CarRental{CarId = 1, ColorId = 2, BrandId = 3, ModelYear = 1997, DailyPrice = 125, Description = "Çok uygun fiyattan kiralama."},
-                new CarRental{CarId = 2, ColorId = 4, BrandId = 2, ModelYear = 2008, DailyPrice = 185, Description = "Çok uygun fiyattan kiralama."},
-                new CarRental{CarId = 3, ColorId = 1, BrandId = 2, ModelYear = 2019, DailyPrice = 155, Description = "Çok uygun fiyattan kiralama."},
-                new CarRental{CarId = 4, ColorId = 5, BrandId = 4, ModelYear = 2020, DailyPrice = 130, Description = "Çok uygun fiyattan kiralama."},
+                new Car{CarId = 1, ColorId = 2, BrandId = 3, ModelYear = 1997, DailyPrice = 125, Description = "Çok uygun fiyattan kiralama."},
+                new Car{CarId = 2, ColorId = 4, BrandId = 2, ModelYear = 2008, DailyPrice = 185, Description = "Çok uygun fiyattan kiralama."},
+                new Car{CarId = 3, ColorId = 1, BrandId = 2, ModelYear = 2019, DailyPrice = 155, Description = "Çok uygun fiyattan kiralama."},
+                new Car{CarId = 4, ColorId = 5, BrandId = 4, ModelYear = 2020, DailyPrice = 130, Description = "Çok uygun fiyattan kiralama."},
 
             };
         }
 
-        public List<CarRental> GetById()
+        public List<Car> GetById()
         {
             return _cars;
         }
 
-        public List<CarRental> GetAll()
+        public List<Car> GetAll()
         {
             return _cars;
         }
 
-        public CarRental GetAll(Expression<Func<CarRental, bool>> filter = null)
+        public Car GetAll(Expression<Func<Car, bool>> filter = null)
         {
             throw new NotImplementedException();
         }
 
-        public CarRental Get(Expression<Func<CarRental, bool>> filter)
+        public Car Get(Expression<Func<Car, bool>> filter)
         {
             throw new NotImplementedException();
         }
 
-        public void Add(CarRental entity)
+        public void Add(Car entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(CarRental car)
+        public void Update(Car car)
         {
-            CarRental carToUpdate = _cars.SingleOrDefault(p => p.CarId == car.CarId);
+            Car carToUpdate = _cars.SingleOrDefault(p => p.CarId == car.CarId);
             carToUpdate.DailyPrice = car.DailyPrice;
             carToUpdate.Description = car.Description;
             carToUpdate.ColorId = car.ColorId;
         }
 
-        public void Delete(CarRental car)
+        public void Delete(Car car)
         {
-            CarRental carToDelete = _cars.SingleOrDefault(p => p.CarId == car.CarId);
+            Car carToDelete = _cars.SingleOrDefault(p => p.CarId == car.CarId);
             _cars.Remove(carToDelete);
         }
 
-        List<CarRental> IEntityRepository<CarRental>.GetAll(Expression<Func<CarRental, bool>> filter)
+        List<Car> IEntityRepository<Car>.GetAll(Expression<Func<Car, bool>> filter)
         {
             throw new NotImplementedException();
         }
 
         public List<CarsRentalDetailDto> GetCarsRentalDetail()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<Car>> GetAllByBrandId(int brandId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<Car>> GetAllByColorId(int colorId)
         {
             throw new NotImplementedException();
         }

@@ -10,8 +10,6 @@ namespace Business.Abstract
     public interface IRentCarService
     {
         IDataResult<List<CarRental>> GetAll();
-        IDataResult<List<CarRental>> GetAllByBrandId(int brandId);
-        IDataResult<List<CarRental>> GetAllByColorId(int colorId);
         IDataResult<List<CarsRentalDetailDto>> GetCarsRentalDetail();
         IDataResult<CarRental> GetById(int id);
         IResult Add(CarRental carRental);

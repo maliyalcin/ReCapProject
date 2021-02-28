@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -24,5 +25,15 @@ namespace Business.Constants
         public static string ColorAdded="Renk Başarıyla Eklendi.";
         public static string ColorUpdated="Renk Güncellendi.";
         public static string ColorDeleted="Renk Güncelledi.";
+        public static string CompanyNameInvalid="Şirket Adı Geçersiz.";
+        public static string CustomerAdded="Müşteri Başarıyla Eklendi.";
+        public static string CustomerUpdated="Müşteri Güncellendi.";
+        public static string CustomerDeleted = "Müşteri Silindi.";
+        public static string CustomerList="Müşteriler Listelendi.";
+        public static string UserDeleted= "Kullanıcı Silindi.";
+        public static string UserUpdated = "Kullanıcı Güncellendi.";
+        public static string UserAdded = "Kullanıcı Başarıyla Eklendi.";
+        public static string UserNameInvalid = "Kullanıcı Adı Geçersiz.";
+        public static string UserList = "Kullanıcılar Listelendi.";
     }
 }

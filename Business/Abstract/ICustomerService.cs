@@ -7,9 +7,7 @@ using Entities.Concrete;
 
 namespace Business.Abstract
 {
-    public interface ICarService:IEntityService<Car>
+    public interface ICustomerService:IEntityService<Customer>
     {
-        IDataResult<List<Car>> GetAllByBrandId(int brandId);
-        IDataResult<List<Car>> GetAllByColorId(int colorId);
     }
 }
