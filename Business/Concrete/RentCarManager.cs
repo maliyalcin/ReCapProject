@@ -19,14 +19,10 @@ namespace Business.Concrete
             _rentCarDal = rentCarDal;
         }
 
-        public IResult Add(Car car)
+        public IResult Add(CarRental carRental)
         {
-            if (car.CarName.Length < 2)
-            {
-                return new ErrorResult(Messages.CarNameInvalid);
-            }
             _rentCarDal.Add(new CarRental());
-            return new Result(true, Messages.CarAdded);
+            return new Result(true, Messages.CarRentalAdded);
         }
 
         public IDataResult<List<CarRental>> GetAll()
