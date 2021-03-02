@@ -35,5 +35,7 @@ namespace Business.Constants
         public static string UserAdded = "Kullanıcı Başarıyla Eklendi.";
         public static string UserNameInvalid = "Kullanıcı Adı Geçersiz.";
         public static string UserList = "Kullanıcılar Listelendi.";
+        internal static string CarRentalUpdated;
+        internal static string CarRentalDeleted;
     }
 }

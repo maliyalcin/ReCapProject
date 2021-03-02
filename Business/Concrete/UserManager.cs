@@ -20,8 +20,7 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetAll()
         {
-            _userDal.GetAll();
-            return new SuccessDataResult<List<User>>(Messages.UserList);
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UserList);
         }
 
         public IDataResult<User> GetById(int id)

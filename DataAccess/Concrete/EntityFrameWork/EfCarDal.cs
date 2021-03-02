@@ -1,34 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Core.DataAccess.EntityFramework;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete.EntityFrameWork
 {
     public class EfCarDal:EfEntityRepositoryBase<Car,CarsRentalContext>,ICarDal
     {
-        ICarDal _carDal;
-
-        public EfCarDal()
+        public List<CarDetailDto> GetCarDetails()
         {
-        }
-
-        public EfCarDal(ICarDal carDal)
-        {
-            _carDal = carDal;
-        }
-
-        public IDataResult<List<Car>> GetAllByColorId(int colorId)
-        {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(cr => cr.ColorId == colorId));
-        }
-
-        IDataResult<List<Car>> ICarDal.GetAllByBrandId(int brandId)
-        {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId));
+            using (CarsRentalContext context = new CarsRentalContext())
+            {
+                var result = from car in context.Cars
+                    join brand in context.Brands on car.BrandId equals brand.BrandId
+                    join color in context.Colors on car.ColorId equals color.ColorId
+                    select new CarDetailDto
+                    {
+                        CarId = car.CarId,
+                        BrandName = brand.BrandName,
+                        ColorName = color.ColorName,
+                        DailyPrice = car.DailyPrice,
+                        Description = car.Description,
+                        ModelYear = car.ModelYear
+                    };
+                return result.ToList();
+            }
         }
     }
 }

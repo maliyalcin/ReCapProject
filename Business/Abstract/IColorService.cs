@@ -6,7 +6,7 @@ using Entities.Concrete;
 
 namespace Business.Abstract
 {
-    interface IColorService:IEntityService<Color>
+    public interface IColorService:IEntityService<Color>
     {
     }
 }

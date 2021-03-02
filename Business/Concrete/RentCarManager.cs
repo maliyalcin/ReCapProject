@@ -25,6 +25,18 @@ namespace Business.Concrete
             return new Result(true, Messages.CarRentalAdded);
         }
 
+        public IResult Update(CarRental carRental)
+        {
+            _rentCarDal.Update(carRental);
+            return new Result(true, Messages.CarRentalUpdated);
+        }
+
+        public IResult Delete(CarRental carRental)
+        {
+            _rentCarDal.Delete(carRental);
+            return new SuccessResult(Messages.CarRentalDeleted);
+        }
+
         public IDataResult<List<CarRental>> GetAll()
         {
             if (DateTime.Now.Hour==20)

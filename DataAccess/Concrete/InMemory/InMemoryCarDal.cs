@@ -37,16 +37,6 @@ namespace DataAccess.Concrete
             return _cars;
         }
 
-        public Car GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Car Get(Expression<Func<Car, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Add(Car entity)
         {
             throw new NotImplementedException();
@@ -66,22 +56,22 @@ namespace DataAccess.Concrete
             _cars.Remove(carToDelete);
         }
 
+        public List<CarDetailDto> GetCarDetails()
+        {
+            throw new NotImplementedException();
+        }
+
         List<Car> IEntityRepository<Car>.GetAll(Expression<Func<Car, bool>> filter)
         {
             throw new NotImplementedException();
         }
 
+        public Car Get(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<CarsRentalDetailDto> GetCarsRentalDetail()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDataResult<List<Car>> GetAllByBrandId(int brandId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDataResult<List<Car>> GetAllByColorId(int colorId)
         {
             throw new NotImplementedException();
         }
