@@ -7,6 +7,7 @@ using Business.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFrameWork;
 using Autofac.Extras.DynamicProxy;
+using Business.CCS;
 using Core.Utilities.Interceptors;
 using Castle.DynamicProxy;
 
@@ -33,6 +34,9 @@ namespace Business.DependencyResolves.Autofac
 
             builder.RegisterType<BrandManager>().As<IBrandService>().SingleInstance();
             builder.RegisterType<EfBrandDal>().As<IBrandsDal>().SingleInstance();
+
+            builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
+            builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

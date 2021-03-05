@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Business.Abstract;
+using Business.CCS;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -13,13 +16,15 @@ using FluentValidation;
 
 namespace Business.Concrete
 {
-    public class UserManager:IUserService
+    public class UserManager : IUserService
     {
         IUserDal _userDal;
+        ICustomerService _customerService;
 
-        public UserManager(IUserDal userDal)
+        public UserManager(IUserDal userDal,ICustomerService customerService)
         {
             _userDal = userDal;
+            _customerService = customerService;
         }
 
         public IDataResult<List<User>> GetAll()
@@ -32,11 +37,19 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(_userDal.Get(u => u.UserId == id));
         }
 
-        [ValidationAspect(typeof(UserValidator))]
+        //[ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
+            IResult result = BusinessRules.Run(CheckIfUserNameExists(user.FirstName),
+                CheckIfUserCountCorrect(user.UserId), CheckIfCustomerLimitExceded());
+
+            if (result != null)
+            {
+                return result;
+            }
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
+
         }
 
         public IResult Update(User user)
@@ -50,5 +63,39 @@ namespace Business.Concrete
             _userDal.Delete(user);
             return new SuccessResult(Messages.UserDeleted);
         }
+
+        private IResult CheckIfUserCountCorrect(int userId)
+        {
+            var result = _userDal.GetAll(u => u.UserId == userId).Count;
+            if (result >= 10)
+            {
+                return new ErrorResult(Messages.UserCountError);
+            }
+
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfUserNameExists(string firstName)
+        {
+            var result = _userDal.GetAll(u => u.FirstName == firstName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.UserNameAlreadyExists);
+            }
+
+            return new SuccessResult();
+
+        }
+
+        private IResult CheckIfCustomerLimitExceded()
+        {
+            var result = _customerService.GetAll();
+            if (result.Data.Count>15)
+            {
+                return new ErrorResult(Messages.CustomerLimiExceded);
+            }
+            return new SuccessResult();
+        }
+
     }
 }

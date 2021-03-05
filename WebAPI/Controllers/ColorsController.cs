@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
         [HttpPost("update")]
         public IActionResult Update(Color color)
         {
-            var result = _colorService.Delete(color);
+            var result = _colorService.Update(color);
             if (result.Success)
             {
                 return Ok(result);

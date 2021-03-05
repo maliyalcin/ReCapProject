@@ -59,7 +59,7 @@ namespace WebAPI.Controllers
         [HttpPost("update")]
         public IActionResult Update(Customer customer)
         {
-            var result = _customerService.Delete(customer);
+            var result = _customerService.Update(customer);
             if (result.Success)
             {
                 return Ok(result);

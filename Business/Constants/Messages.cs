@@ -37,5 +37,9 @@ namespace Business.Constants
         public static string UserList = "Kullanıcılar Listelendi.";
         public static string CarRentalUpdated = "Araba kiralama bilgileri güncellendi.";
         public static string CarRentalDeleted = "Araba kiralama bilgileri silindi.";
+        public static string UserCountError = "En fazla 10 kullanıcı eklenebilir.";
+        public static string UserNameAlreadyExists = "Bu isimde başka bir kullanıcı var.";
+        public static string CustomerLimiExceded = "Müşteri Limitini Aştınız.";
+        public static string ExceededAddedImageLimit = "Resim ekleme limiti aşıldı.";
     }
 }
