@@ -13,6 +13,7 @@ using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Linq;
+using Business.BusinessAspects.Autofac;
 
 namespace Business.Concrete
 {
@@ -25,6 +26,7 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
 
+        [SecuredOperation("carImages.add,admin")]
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(IFormFile file, CarImage carImage)
         {
@@ -40,6 +42,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        [SecuredOperation("carImages.update,admin")]
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(IFormFile file, CarImage carImage)
         {
@@ -49,6 +52,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        [SecuredOperation("carImages.delete,admin")]
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Delete(CarImage carImage)
         {

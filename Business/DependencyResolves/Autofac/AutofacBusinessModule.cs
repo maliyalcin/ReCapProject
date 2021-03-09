@@ -10,6 +10,7 @@ using Autofac.Extras.DynamicProxy;
 using Business.CCS;
 using Core.Utilities.Interceptors;
 using Castle.DynamicProxy;
+using Core.Utilities.Security.JWT;
 
 namespace Business.DependencyResolves.Autofac
 {
@@ -37,6 +38,9 @@ namespace Business.DependencyResolves.Autofac
 
             builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

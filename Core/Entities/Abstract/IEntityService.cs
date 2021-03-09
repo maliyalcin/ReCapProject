@@ -1,9 +1,7 @@
-﻿using Core.Utilities.Results;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Core.Utilities.Results;
 
-namespace Core.Entities
+namespace Core.Entities.Abstract
 {
     public interface IEntityService<T>
     {
