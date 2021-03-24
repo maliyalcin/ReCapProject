@@ -8,10 +8,9 @@ using Entities.Concrete;
 
 namespace Business.Abstract
 {
-    public interface IUserService//:IEntityService<User>
+    public interface IUserService :IEntityService<User>
     {
         List<OperationClaim> GetClaims(User user);
-        void Add(User user);
         User GetByMail(string email);
     }
 }

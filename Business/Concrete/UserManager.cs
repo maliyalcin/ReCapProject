@@ -20,22 +20,17 @@ namespace Business.Concrete
     public class UserManager : IUserService
     {
         IUserDal _userDal;
-        //ICustomerService _customerService;
+        ICustomerService _customerService;
 
-        public UserManager(IUserDal userDal) //,ICustomerService customerService
+        public UserManager(IUserDal userDal, ICustomerService customerService) 
         {
             _userDal = userDal;
-            //_customerService = customerService;
+            _customerService = customerService;
         }
 
         public List<OperationClaim> GetClaims(User user)
         {
             return _userDal.GetClaims(user);
-        }
-
-        public void Add(User user)
-        {
-            _userDal.Add(user);
         }
 
         public User GetByMail(string email)
@@ -48,74 +43,74 @@ namespace Business.Concrete
 
         //JWT Yetkilendirme işleminden önceki methotlar.
 
-        //public IDataResult<List<User>> GetAll()
-        //{
-        //    return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UserList);
-        //}
+        public IDataResult<List<User>> GetAll()
+        {
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(), Messages.UserList);
+        }
 
-        //public IDataResult<User> GetById(int id)
-        //{
-        //    return new SuccessDataResult<User>(_userDal.Get(u => u.UserId == id));
-        //}
+        public IDataResult<User> GetById(int id)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id));
+        }
 
-        ////[ValidationAspect(typeof(UserValidator))]
-        //public IResult Add(User user)
-        //{
-        //    IResult result = BusinessRules.Run(CheckIfUserNameExists(user.FirstName),
-        //        CheckIfUserCountCorrect(user.UserId), CheckIfCustomerLimitExceded());
+        //[ValidationAspect(typeof(UserValidator))]
+        public IResult Add(User user)
+        {
+            IResult result = BusinessRules.Run(CheckIfUserNameExists(user.FirstName),
+                CheckIfUserCountCorrect(user.Id), CheckIfCustomerLimitExceded());
 
-        //    if (result != null)
-        //    {
-        //        return result;
-        //    }
-        //    _userDal.Add(user);
-        //    return new SuccessResult(Messages.UserAdded);
+            if (result != null)
+            {
+                return result;
+            }
+            _userDal.Add(user);
+            return new SuccessResult(Messages.UserAdded);
 
-        //}
+        }
 
-        //public IResult Update(User user)
-        //{
-        //    _userDal.Update(user);
-        //    return new SuccessResult(Messages.UserUpdated);
-        //}
+        public IResult Update(User user)
+        {
+            _userDal.Update(user);
+            return new SuccessResult(Messages.UserUpdated);
+        }
 
-        //public IResult Delete(User user)
-        //{
-        //    _userDal.Delete(user);
-        //    return new SuccessResult(Messages.UserDeleted);
-        //}
+        public IResult Delete(User user)
+        {
+            _userDal.Delete(user);
+            return new SuccessResult(Messages.UserDeleted);
+        }
 
-        //private IResult CheckIfUserCountCorrect(int userId)
-        //{
-        //    var result = _userDal.GetAll(u => u.UserId == userId).Count;
-        //    if (result >= 10)
-        //    {
-        //        return new ErrorResult(Messages.UserCountError);
-        //    }
+        private IResult CheckIfUserCountCorrect(int userId)
+        {
+            var result = _userDal.GetAll(u => u.Id == userId).Count;
+            if (result >= 10)
+            {
+                return new ErrorResult(Messages.UserCountError);
+            }
 
-        //    return new SuccessResult();
-        //}
+            return new SuccessResult();
+        }
 
-        //private IResult CheckIfUserNameExists(string firstName)
-        //{
-        //    var result = _userDal.GetAll(u => u.FirstName == firstName).Any();
-        //    if (result)
-        //    {
-        //        return new ErrorResult(Messages.UserNameAlreadyExists);
-        //    }
+        private IResult CheckIfUserNameExists(string firstName)
+        {
+            var result = _userDal.GetAll(u => u.FirstName == firstName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.UserNameAlreadyExists);
+            }
 
-        //    return new SuccessResult();
+            return new SuccessResult();
 
-        //}
+        }
 
-        //private IResult CheckIfCustomerLimitExceded()
-        //{
-        //    var result = _customerService.GetAll();
-        //    if (result.Data.Count>15)
-        //    {
-        //        return new ErrorResult(Messages.CustomerLimiExceded);
-        //    }
-        //    return new SuccessResult();
-        //}
+        private IResult CheckIfCustomerLimitExceded()
+        {
+            var result = _customerService.GetAll();
+            if (result.Data.Count > 15)
+            {
+                return new ErrorResult(Messages.CustomerLimiExceded);
+            }
+            return new SuccessResult();
+        }
     }
 }
