@@ -68,6 +68,18 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getcardetails")]
+        public IActionResult Get()
+        {
+            var result = _carService.GetCarDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
         [HttpPost("add")]
         public IActionResult Add(Car car)
         {
@@ -103,5 +115,6 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+
     }
 }

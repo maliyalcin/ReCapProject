@@ -27,19 +27,12 @@ namespace DataAccess.Concrete.EntityFrameWork
                              {
 
                                  Id = carRental.Id,
-                                 RentDate = carRental.RentDate,
-                                 ReturnDate = carRental.ReturnDate,
-                                 CarId = car.CarId,
                                  CarName = car.CarName,
                                  BrandName = brand.BrandName,
-                                 ColorName = color.ColorName,
-                                 ModelYear = car.ModelYear,
-                                 DailyPrice = car.DailyPrice,
-                                 Description = car.Description,
-                                 CustomerId = customer.CustomerId,
-                                 FirstName = user.FirstName,
-                                 LastName = user.LastName,
+                                 UserName = user.FirstName + " " + user.LastName,
                                  CompanyName = customer.CompanyName,
+                                 RentDate = carRental.RentDate,
+                                 ReturnDate = carRental.ReturnDate,
 
                              };
                 return result.ToList();
